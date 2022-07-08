@@ -18,6 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password");
         http.authorizeRequests()
                 .antMatchers("/posts").authenticated()
+                .antMatchers("/post/**").authenticated()
                 .anyRequest().permitAll();
     }
 
