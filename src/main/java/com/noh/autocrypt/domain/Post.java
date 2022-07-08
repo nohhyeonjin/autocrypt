@@ -3,11 +3,14 @@ package com.noh.autocrypt.domain;
 import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
+@NoArgsConstructor
 public class Post {
 
     @Id
