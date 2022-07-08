@@ -17,7 +17,7 @@ public class PostController {
     @PostMapping("/post")
     public Long addPost(@RequestBody PostDTO postDTO, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Post post = postService.addPost(postDTO.getContent(), userDetails.getUsername());
+        Post post = postService.add(postDTO.getContent(), userDetails.getUsername());
 
         return post.getId();
     }
@@ -29,7 +29,7 @@ public class PostController {
             throw new IllegalStateException("본인 게시글만 수정 가능합니다.");
         }
 
-        Post post = postService.modifyPost(id, postDTO.getContent());
+        Post post = postService.modify(id, postDTO.getContent());
 
         return post.getId();
     }

@@ -17,7 +17,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
 
-    public Post addPost(String content, String email) {
+    public Post add(String content, String email) {
         Member member = memberRepository.findByEmail(email);
         Post post = Post.builder()
                 .member(member)
@@ -42,7 +42,7 @@ public class PostService {
     }
 
     @Transactional
-    public Post modifyPost(Long postId, String content) {
+    public Post modify(Long postId, String content) {
         Optional<Post> oPost = postRepository.findById(postId);
         if (oPost.isEmpty()) {
             return null;
