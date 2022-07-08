@@ -1,6 +1,7 @@
 package com.noh.autocrypt.domain;
 
 import com.sun.istack.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -20,5 +21,11 @@ public class Post {
 
     @NotNull
     private boolean locked = false;
+
+    @Builder
+    public Post(Member member, String content) {
+        this.member = member;
+        this.content = content;
+    }
 
 }
