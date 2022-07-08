@@ -34,4 +34,14 @@ public class PostController {
         return post.getId();
     }
 
+    @DeleteMapping("/post/{id}")
+    public void deletePost(@PathVariable Long id, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        if(!postService.isMemberPost(id, userDetails.getUsername())){
+            throw new IllegalStateException("본인 게시글만 삭제 가능합니다.");
+        }
+
+        postService.delete(id);
+    }
+
 }
