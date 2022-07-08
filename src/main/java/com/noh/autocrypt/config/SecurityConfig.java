@@ -17,6 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .passwordParameter("password");
         http.authorizeRequests()
+                .antMatchers("/posts").authenticated()
                 .anyRequest().permitAll();
     }
 

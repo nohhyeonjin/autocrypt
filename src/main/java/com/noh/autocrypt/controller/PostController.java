@@ -1,12 +1,16 @@
 package com.noh.autocrypt.controller;
 
 import com.noh.autocrypt.controller.dto.PostDTO;
+import com.noh.autocrypt.controller.dto.PostDetailDTO;
 import com.noh.autocrypt.domain.Post;
 import com.noh.autocrypt.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,6 +46,15 @@ public class PostController {
         }
 
         postService.delete(id);
+    }
+
+    @GetMapping("/posts")
+    public List<PostDetailDTO> getPosts(Authentication authentication) {
+        List<Post> postList = postService.getAllPosts();
+
+        return postList.stream()
+                .map(post -> new PostDetailDTO(post.getMember().getNickname(), post.getContent()))
+                .collect(Collectors.toList());
     }
 
 }
