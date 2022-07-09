@@ -57,4 +57,14 @@ public class PostController {
                 .collect(Collectors.toList());
     }
 
+    @PostMapping("/post/{id}")
+    public void lockPost(@PathVariable Long id, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        if(!postService.isMemberPost(id, userDetails.getUsername())){
+            throw new IllegalStateException("본인 게시글만 상태 변경 가능합니다.");
+        }
+
+        postService.changeLockStatus(id);
+    }
+
 }

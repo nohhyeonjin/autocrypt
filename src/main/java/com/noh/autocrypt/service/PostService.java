@@ -15,6 +15,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PostService {
 
+    private static boolean UNLOCK = false;
+    private static boolean LOCK = true;
+
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
 
@@ -61,6 +64,19 @@ public class PostService {
 
     public List<Post> getAllPosts() {
         return postRepository.findAll();
+    }
+
+    @Transactional
+    public void changeLockStatus(Long id) {
+        Optional<Post> oPost = postRepository.findById(id);
+        Post post = oPost.get();
+
+        if (post.isLocked()) {
+            post.setLocked(UNLOCK);
+        } else {
+            post.setLocked(LOCK);
+        }
+
     }
 
 }
