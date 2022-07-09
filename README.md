@@ -22,7 +22,7 @@
 |FUCNTION|METHOD|URI|PARAM|BODY|
 |--------|------|---|-----|----|
 |로그인|POST|/login|-|email, password|
-|회원가입|POST|/member|-|email, password|
+|회원가입|POST|/member|-|email, password, nickname|
 |게시글작성|POST|/post|-|content|
 |게시글수정|PATCH|/post/{id}|postId|content|
 |게시글삭제|DELETE|/post/{id}|postId|-|
@@ -51,7 +51,7 @@
   
 |테스트 항목|절차|사전조건|기대결과|
 |--------|----|----|------|
-|회원가입|1. email과 password를 입력하여 회원가입한다 |-|회원가입이 완료된다|
+|회원가입|1. email, password, nickname을 입력하여 회원가입한다 |-|회원가입이 완료된다|
 |로그인|1. email과 password를 입력하여 로그인한다 |-|로그인이 완료된다|
 |게시글 작성|1. 로그아웃한다 <br> 2. 게시글을 작성한다 <br> 3. 로그인한다 <br> 4. 게시글을 작성한다|로그인|2. 접근이 불가능하다 <br> 4. 게시글이 작성된다|
 |게시글 수정|1. 작성자 이외 계정으로 로그인한다 <br> 2. 게시글을 수정한다 <br> 3. 게시글 작성자 계정으로 로그인한다 <br> 4. 게시글을 수정한다 |게시글 작성|2. 콘솔에 "본인 게시글만 수정 가능합니다." 에러가 출력된다 <br> 4. 게시글이 수정된다|
