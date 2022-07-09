@@ -50,9 +50,11 @@ public class PostController {
 
     @GetMapping("/posts")
     public List<PostDetailDTO> getPosts(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         List<Post> postList = postService.getAllPosts();
 
         return postList.stream()
+                .filter(post -> (!post.isLocked() || (post.isLocked() && postService.isMemberPost(post.getId(), userDetails.getUsername()))))
                 .map(post -> new PostDetailDTO(post.getMember().getNickname(), post.getContent()))
                 .collect(Collectors.toList());
     }
