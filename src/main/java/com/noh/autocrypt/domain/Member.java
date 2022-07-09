@@ -25,6 +25,7 @@ public class Member {
     @NotNull
     private String password;
 
+    @NotNull
     private String nickname;
 
     @Builder
