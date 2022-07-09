@@ -22,7 +22,7 @@ public class Post {
 
     private String content;
 
-    @NotNull
+    @Column(nullable = false)
     private boolean locked = false;
 
     @Builder

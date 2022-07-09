@@ -4,18 +4,19 @@ import com.sun.istack.NotNull;
 import lombok.Getter;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 public class JoinDTO {
 
-    @NotNull
+    @NotEmpty
     @Email
     private String email;
 
-    @NotNull
+    @NotEmpty
     private String password;
 
-    @NotNull
+    @NotEmpty
     private String nickname;
 
 }
