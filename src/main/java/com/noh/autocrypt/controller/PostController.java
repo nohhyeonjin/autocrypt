@@ -3,6 +3,8 @@ package com.noh.autocrypt.controller;
 import com.noh.autocrypt.controller.dto.PostDTO;
 import com.noh.autocrypt.controller.dto.PostDetailDTO;
 import com.noh.autocrypt.domain.Post;
+import com.noh.autocrypt.exception.ApiException;
+import com.noh.autocrypt.exception.ExceptionEnum;
 import com.noh.autocrypt.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -30,7 +32,7 @@ public class PostController {
     public Long modifyPost(@PathVariable Long id, @RequestBody PostDTO postDTO, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if(!postService.isMemberPost(id, userDetails.getUsername())){
-            throw new IllegalStateException("본인 게시글만 수정 가능합니다.");
+            throw new ApiException(ExceptionEnum.FORBIDDEN_MODIFY_POST);
         }
 
         Post post = postService.modify(id, postDTO.getContent());
@@ -42,7 +44,7 @@ public class PostController {
     public void deletePost(@PathVariable Long id, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if(!postService.isMemberPost(id, userDetails.getUsername())){
-            throw new IllegalStateException("본인 게시글만 삭제 가능합니다.");
+            throw new ApiException(ExceptionEnum.FORBIDDEN_DELETE_POST);
         }
 
         postService.delete(id);
@@ -63,7 +65,7 @@ public class PostController {
     public void lockPost(@PathVariable Long id, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if(!postService.isMemberPost(id, userDetails.getUsername())){
-            throw new IllegalStateException("본인 게시글만 상태 변경 가능합니다.");
+            throw new ApiException(ExceptionEnum.FORBIDDEN_LOCK_POST);
         }
 
         postService.changeLockStatus(id);
