@@ -9,12 +9,14 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(value = {ApiException.class})
     public ResponseEntity<Object> handleApiException(ApiException e) {
+        ApiExceptionEntity exceptionEntity = ApiExceptionEntity.builder()
+                .errorCode(e.getError().getCode())
+                .message(e.getError().getMessage())
+                .build();
+
         return ResponseEntity
                 .status(e.getError().getStatus())
-                .body(ApiExceptionEntity.builder()
-                        .errorCode(e.getError().getCode())
-                        .message(e.getError().getMessage())
-                        .build());
+                .body(exceptionEntity);
     }
 
 }
