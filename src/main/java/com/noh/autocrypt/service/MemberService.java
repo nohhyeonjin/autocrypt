@@ -23,4 +23,22 @@ public class MemberService {
         return member;
     }
 
+    public boolean existMember(String email) {
+        Member member = memberRepository.findByEmail(email);
+        if (member == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean existNickname(String nickname) {
+        Member member = memberRepository.findByNickname(nickname);
+        if (member == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }
