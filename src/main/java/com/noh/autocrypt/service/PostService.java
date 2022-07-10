@@ -80,7 +80,12 @@ public class PostService {
     }
 
     public Post findById(Long id) {
-        return postRepository.findById(id).get();
+        Optional<Post> oPost = postRepository.findById(id);
+        if (oPost.isEmpty()) {
+            return null;
+        }
+        
+        return oPost.get();
     }
 
 }
