@@ -61,6 +61,18 @@ public class PostController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/post/{id}")
+    public PostDetailDTO getPost(@PathVariable Long id, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Post post = postService.findById(id);
+
+        if (post.isLocked() && !postService.isMemberPost(post.getId(), userDetails.getUsername())) {
+            throw new ApiException(ExceptionEnum.FORBIDDEN_READ_POST);
+        }
+
+        return new PostDetailDTO(post.getMember().getNickname(), post.getContent(), post.getCreatedAt());
+    }
+
     @PostMapping("/post/{id}")
     public void lockPost(@PathVariable Long id, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
