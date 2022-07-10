@@ -1,16 +1,19 @@
 package com.noh.autocrypt.domain;
 
-import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Post {
 
     @Id
@@ -24,6 +27,9 @@ public class Post {
 
     @Column(nullable = false)
     private boolean locked = false;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
 
     @Builder
     public Post(Member member, String content) {

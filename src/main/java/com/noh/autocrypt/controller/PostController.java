@@ -57,7 +57,7 @@ public class PostController {
 
         return postList.stream()
                 .filter(post -> (!post.isLocked() || (post.isLocked() && postService.isMemberPost(post.getId(), userDetails.getUsername()))))
-                .map(post -> new PostDetailDTO(post.getMember().getNickname(), post.getContent()))
+                .map(post -> new PostDetailDTO(post.getMember().getNickname(), post.getContent(), post.getCreatedAt()))
                 .collect(Collectors.toList());
     }
 
